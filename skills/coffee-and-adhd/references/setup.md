@@ -1,4 +1,4 @@
-# Setup do Café & TDAH
+# Setup do Coffee & ADHD
 
 O setup deve ser curto. São 5 perguntas, uma rodada só, sempre com uma resposta padrão que a pessoa pode só aceitar. Quem tem TDAH não quer um formulário longo antes do café.
 
@@ -27,7 +27,7 @@ Os 2 ou 3 primeiros interesses viram pautas fixas, e os outros, pautas dinâmica
 
 ### 3. Nome e idioma
 
-> O jornal se chama **Café & TDAH**. Quer outro nome? Idioma: português (padrão) ou outro?
+> O jornal se chama **Coffee & ADHD** (em português, pode ser **Café & TDAH**). Quer outro nome? Idioma: português (padrão) ou outro?
 
 Não aceite o nome de um jornal real (ex.: "The New York Times") como nameplate. Proponha uma variação própria.
 
@@ -35,7 +35,7 @@ Não aceite o nome de um jornal real (ex.: "The New York Times") como nameplate.
 
 > Onde salvo o PDF de cada dia, e imprimo no final?
 
-- **Pasta:** sugira uma pasta já conectada à sessão ou `~/Documents/Cafe e TDAH`.
+- **Pasta:** sugira uma pasta já conectada à sessão ou `~/Documents/Coffee and ADHD`.
 - **Imprimir:** se for imprimir, liste as impressoras com `lpstat -p` no computador do usuário e sugira a padrão ou a única que aparecer. Avise que o computador precisa estar ligado na hora da rotina.
 
 ### 5. Rotina diária
@@ -49,12 +49,12 @@ Sugira um horário cedo, como 6h45, e confirme o fuso.
 
 ## Arquivo de configuração
 
-Grave `cafe-e-tdah.json` na pasta de entrega. Se não houver pasta, grave em `~/.cafe-e-tdah/`.
+Grave `coffee-and-adhd.json` na pasta de entrega. Se não houver pasta, grave em `~/.coffee-and-adhd/`.
 
 ```json
 {
   "versao": 1,
-  "nome_jornal": "Café & TDAH",
+  "nome_jornal": "Coffee & ADHD",
   "idioma": "pt-BR",
   "perfil": "memoria",
   "leitor": { "nome": "Ana", "cidade": "Recife-PE", "fuso": "America/Sao_Paulo" },
@@ -64,7 +64,7 @@ Grave `cafe-e-tdah.json` na pasta de entrega. Se não houver pasta, grave em `~/
     "evitar": ["fofoca de celebridades"]
   },
   "entrega": {
-    "pasta": "/Users/ana/Documents/Cafe e TDAH",
+    "pasta": "/Users/ana/Documents/Coffee and ADHD",
     "imprimir": true,
     "impressora": "Nome_da_Impressora"
   },
@@ -81,7 +81,7 @@ Grave `cafe-e-tdah.json` na pasta de entrega. Se não houver pasta, grave em `~/
 
 O prompt da rotina precisa se explicar sozinho, porque cada execução começa do zero:
 
-> Use a skill **cafe-e-tdah** com a configuração em `<caminho>/cafe-e-tdah.json` e gere a edição de hoje. Salve na pasta configurada, imprima se a config pedir e termine com um resumo de 2 linhas.
+> Use a skill **coffee-and-adhd** com a configuração em `<caminho>/coffee-and-adhd.json` e gere a edição de hoje. Salve na pasta configurada, imprima se a config pedir e termine com um resumo de 2 linhas.
 
 ### Tarefa agendada do app (preferida quando existir)
 
@@ -94,14 +94,14 @@ O prompt da rotina precisa se explicar sozinho, porque cada execução começa d
 
 ```cron
 # 6h45 todo dia
-45 6 * * * cd "$HOME/Documents/Cafe e TDAH" && claude -p "Use a skill cafe-e-tdah com a config em ./cafe-e-tdah.json e gere a edição de hoje" >> cafe-e-tdah.log 2>&1
-# Codex: troque por  codex exec "Use a skill cafe-e-tdah ..."
+45 6 * * * cd "$HOME/Documents/Coffee and ADHD" && claude -p "Use a skill coffee-and-adhd com a config em ./coffee-and-adhd.json e gere a edição de hoje" >> coffee-and-adhd.log 2>&1
+# Codex: troque por  codex exec "Use a skill coffee-and-adhd ..."
 ```
 
 Cron usa o fuso do sistema. Confira com `date`.
 
 ### launchd (macOS, mais confiável que cron)
 
-Crie `~/Library/LaunchAgents/com.cafe-e-tdah.plist` com `StartCalendarInterval` (Hour 6, Minute 45), `ProgramArguments` chamando a CLI com o mesmo prompt e `WorkingDirectory` apontando para a pasta. Depois rode `launchctl load ~/Library/LaunchAgents/com.cafe-e-tdah.plist`. Se o Mac estiver dormindo no horário, o launchd roda a tarefa ao acordar; o cron simplesmente pula aquele dia.
+Crie `~/Library/LaunchAgents/com.coffee-and-adhd.plist` com `StartCalendarInterval` (Hour 6, Minute 45), `ProgramArguments` chamando a CLI com o mesmo prompt e `WorkingDirectory` apontando para a pasta. Depois rode `launchctl load ~/Library/LaunchAgents/com.coffee-and-adhd.plist`. Se o Mac estiver dormindo no horário, o launchd roda a tarefa ao acordar; o cron simplesmente pula aquele dia.
 
 Antes de criar a rotina, mostre o que vai ser instalado (a linha do cron ou o plist) e peça confirmação. Ela vai rodar sozinha no computador da pessoa.

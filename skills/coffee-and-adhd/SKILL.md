@@ -1,18 +1,18 @@
 ---
-name: cafe-e-tdah
-description: "Café & TDAH: monta um jornal diário personalizado em PDF (A4, até 2 páginas, preto e branco, estilo jornal impresso clássico) para qualquer pessoa, com setup inicial de ~5 perguntas (usar a memória do Claude, do Codex/ChatGPT ou de outra LLM; interesses e cidade; nome do jornal; onde salvar e se imprime; se agenda uma rotina diária). Apura as notícias do dia na web com fonte em cada nota, inclui o tempo local e a agenda do dia, salva o PDF e pode mandar direto para a impressora. Use SEMPRE que o usuário pedir \"Café & TDAH\", \"meu jornal\", \"jornal do dia\", \"jornal personalizado\", \"edição de hoje\", \"newspaper\", \"daily paper\", \"resumo de notícias para imprimir\", \"configurar meu jornal\", ou quiser montar/agendar uma edição diária com as notícias que importam para ele, mesmo sem dizer \"skill\" ou \"PDF\"."
+name: coffee-and-adhd
+description: "Coffee & ADHD: monta um jornal diário personalizado em PDF (A4, até 2 páginas, preto e branco, estilo jornal impresso clássico) para qualquer pessoa, com setup inicial de ~5 perguntas (usar a memória do Claude, do Codex/ChatGPT ou de outra LLM; interesses e cidade; nome do jornal; onde salvar e se imprime; se agenda uma rotina diária). Apura as notícias do dia na web com fonte em cada nota, inclui o tempo local e a agenda do dia, salva o PDF e pode mandar direto para a impressora. Use SEMPRE que o usuário pedir \"Coffee & ADHD\", \"Café & TDAH\", \"meu jornal\", \"jornal do dia\", \"jornal personalizado\", \"edição de hoje\", \"newspaper\", \"daily paper\", \"resumo de notícias para imprimir\", \"configurar meu jornal\", ou quiser montar/agendar uma edição diária com as notícias que importam para ele, mesmo sem dizer \"skill\" ou \"PDF\"."
 ---
 
-# Café & TDAH
+# Coffee & ADHD
 
 Produz a edição de hoje de um jornal feito para um único leitor: o usuário. O valor está em três coisas, nesta ordem: **as pautas certas para essa pessoa**, **fatos verificados e recentes**, e **um PDF bonito que cabe em 2 páginas**. Se faltar uma delas, o jornal vira só mais um resumo genérico.
 
-Toda execução começa procurando o arquivo de configuração `cafe-e-tdah.json`:
+Toda execução começa procurando o arquivo de configuração `coffee-and-adhd.json`:
 
 - **Não existe, ou o leitor pediu "configurar", "refazer o setup" ou "mudar meu jornal":** rode o **Setup** (seção 0) e depois gere a primeira edição.
 - **Existe:** pule direto para a seção 1 e use a configuração.
 
-Procure o arquivo nesta ordem: na pasta indicada no pedido ou na tarefa agendada, na pasta de trabalho atual e em `~/.cafe-e-tdah/`.
+Procure o arquivo nesta ordem: na pasta indicada no pedido ou na tarefa agendada, na pasta de trabalho atual e em `~/.coffee-and-adhd/`.
 
 ## 0. Setup (só na primeira vez)
 
@@ -23,14 +23,14 @@ São no máximo 5 perguntas, uma rodada só. Se a ferramenta tiver perguntas de 
    - (b) Memória do Codex/ChatGPT ou de outra LLM, colando o que ela sabe sobre você;
    - (c) Prefiro responder agora.
 2. **Interesses e cidade.** Pergunte pela cidade e por 3 a 5 assuntos: times, esportes, esports, área profissional, hobbies, tecnologias. Se a resposta da pergunta 1 já trouxe isso, só peça para confirmar e completar.
-3. **Nome e idioma do jornal.** O padrão é "Café & TDAH", no idioma das conversas.
+3. **Nome e idioma do jornal.** O padrão é "Coffee & ADHD". Em português, sugira também "Café & TDAH". O idioma padrão é o das conversas.
 4. **Entrega do PDF.** Pergunte em qual pasta salvar e se deve imprimir no final. Se for imprimir, pergunte em qual impressora; para listar as disponíveis, rode `lpstat -p`.
 5. **Rotina diária.** Pergunte se quer receber uma edição automática todo dia e, se sim, em qual horário e de que jeito: tarefa agendada do próprio app (Claude/Codex), cron/launchd no computador ou só sob demanda.
 
 Depois das respostas:
 
-- Salve `cafe-e-tdah.json` na pasta de entrega, seguindo o formato de `references/setup.md`. Esse arquivo é o que torna a rotina independente de qual LLM vai rodá-la amanhã.
-- Se a pessoa quiser rotina, crie a rotina com o mecanismo escolhido (veja `references/setup.md`). O prompt da rotina tem que ser autossuficiente, algo como: "Use a skill cafe-e-tdah com a config em <caminho> e gere a edição de hoje". Confirme o horário e o fuso.
+- Salve `coffee-and-adhd.json` na pasta de entrega, seguindo o formato de `references/setup.md`. Esse arquivo é o que torna a rotina independente de qual LLM vai rodá-la amanhã.
+- Se a pessoa quiser rotina, crie a rotina com o mecanismo escolhido (veja `references/setup.md`). O prompt da rotina tem que ser autossuficiente, algo como: "Use a skill coffee-and-adhd com a config em <caminho> e gere a edição de hoje". Confirme o horário e o fuso.
 - Mostre um resumo de 3 linhas do que ficou configurado e gere a primeira edição.
 
 ## 1. Conhecer o leitor (antes de qualquer busca)
@@ -38,7 +38,7 @@ Depois das respostas:
 O jornal só fica pessoal se as pautas vierem de quem lê. Monte um perfil curto. Quando as fontes discordarem, vale a de cima:
 
 1. **Pedido atual e instruções da tarefa agendada.**
-2. **`cafe-e-tdah.json`:** interesses, cidade, fuso, nome do jornal, entrega.
+2. **`coffee-and-adhd.json`:** interesses, cidade, fuso, nome do jornal, entrega.
 3. **Memória da LLM, se a config disser `"perfil": "memoria"` e houver ferramentas de memória** (ex.: `memory_list` / `memory_read`, ou um bloco de perfil do usuário no contexto). Leia o perfil, as preferências e os arquivos sobre interesses, trabalho, cidade e hobbies, e tire de lá:
    - nome ou apelido, idioma, cidade e fuso;
    - profissão e setor, que vira uma pauta de mercado;
@@ -75,7 +75,7 @@ Dispare as buscas em paralelo (WebSearch; WebFetch nas páginas mais promissoras
 Use o template e o script da skill. Eles já resolvem fontes, hifenização e conferência de tamanho.
 
 1. Copie `assets/template.html` para uma pasta de trabalho como `index.html` e preencha os campos `{{ }}`. Apague blocos não usados e duplique os blocos `.story` à vontade.
-2. **Nameplate:** o nome da config (padrão "Café & TDAH"), em fonte gótica. Crie um lema curto próprio. **Não** use nome, logo ou slogan de jornal real: o leitor vai imprimir e mostrar para outras pessoas, e imitar marca real é cópia.
+2. **Nameplate:** o nome da config (padrão "Coffee & ADHD"), em fonte gótica. Crie um lema curto próprio. **Não** use nome, logo ou slogan de jornal real: o leitor vai imprimir e mostrar para outras pessoas, e imitar marca real é cópia.
 3. **Faixa de data:** "[Cidade], [dia da semana], [data por extenso]" · lema · "Edição nº N". Para N, conte as edições anteriores na pasta de destino (`*-AAAA-MM-DD.pdf`) + 1, ou use a regra que a tarefa agendada definir.
 4. **Página 1:** ear com o tempo (esquerda) e ear com o destaque do dia (direita); manchete em 2 colunas com capitular, linha fina e crédito "Por [nome do jornal]"; duas colunas laterais com as pautas fixas mais fortes (uma delas em lista de notas curtas).
 5. **Página 2:** página local (cidade + agenda cultural em tabela), pautas dinâmicas, agenda do leitor (se houver) e o rodapé "Fontes" com as URLs principais em letra miúda (sem `https://`, encurtadas).
@@ -97,7 +97,7 @@ O script imprime, para cada coluna, quantos pixels sobram (negativo) ou vazam (p
 
 ## 5. Entrega
 
-1. Nome do arquivo: `<slug-do-jornal>-AAAA-MM-DD.pdf` (data de hoje no fuso do leitor). Ex.: `cafe-e-tdah-2026-10-15.pdf`.
+1. Nome do arquivo: `<slug-do-jornal>-AAAA-MM-DD.pdf` (data de hoje no fuso do leitor). Ex.: `coffee-and-adhd-2026-10-15.pdf`.
 2. Grave o PDF na pasta definida em `entrega.pasta` da config. Se o agente roda na nuvem, use a ponte para o computador do usuário quando houver uma. Se a sessão permitir, envie também o arquivo no chat (ex.: SendUserFile). Se não der para gravar na pasta, avise em uma frase e deixe o anexo.
 3. **Se `entrega.imprimir` for `true`, mande para a impressora como último passo.** Veja "Impressão" abaixo. Se for `false`, pule.
 4. Feche com 2–3 linhas no idioma do leitor: a manchete, o compromisso de horário mais importante do dia (jogo, evento), onde o arquivo ficou e se foi impresso (em qual impressora).
