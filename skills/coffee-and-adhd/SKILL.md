@@ -16,7 +16,7 @@ Every run starts by looking for the config file `coffee-and-adhd.json`. Check, i
 
 ## 0. Setup (first run only)
 
-Keep it to 5 questions, asked in one round, plus a 6th about connected apps when discovery finds any (or finds useful ones to suggest). If the tool offers multiple-choice questions (e.g. `AskUserQuestion`), use them. Otherwise ask them as a numbered list in plain text. Suggest a default answer for each, so the reader can simply confirm. Ready-to-use wording, the config format and scheduling recipes are in `references/setup.md`.
+Keep it to 5 questions, plus a 6th about connected apps when discovery finds any (or finds useful ones to suggest). **Ask one question at a time:** send a single question, wait for the answer, then ask the next. Never send them all together in one message or one form. Each answer shapes the next question: from question 1 on, ask in the chosen language; if question 2 already covered interests and city, question 3 just confirms them. If the tool offers multiple-choice questions (e.g. `AskUserQuestion`), use it with one question per call. Otherwise ask in plain text, still one at a time. Suggest a default answer for each, so the reader can simply confirm, and show progress ("2 of 6"). Ready-to-use wording, the config format and scheduling recipes are in `references/setup.md`.
 
 1. **Language.** Ask which language the newspaper and the conversations should use. Suggest Brazilian Portuguese (PT-BR), English and Spanish, and accept any other.
 2. **Where should your profile come from?** This is the key question, because it decides whether the paper will really be personal.

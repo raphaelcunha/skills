@@ -1,6 +1,6 @@
 # Coffee & ADHD setup
 
-Keep the setup short: 5 questions in one round (a 6th about connected apps), each with a default the reader can just accept. Someone with ADHD doesn't want a long form before their coffee.
+Keep the setup short: 5 questions (a 6th about connected apps), each with a default the reader can just accept. **Ask them one at a time**: one question per message (or per `AskUserQuestion` call), wait for the answer, then move on. Someone with ADHD doesn't want a long form before their coffee; one small decision at a time is easier to answer. Start each question with its progress ("2 of 6"), and skip any question an earlier answer already settled.
 
 **Ask the questions in the reader's language.** Before question 1 is answered, use the language they're writing in. The suggested wording below comes in English; translate it naturally.
 
