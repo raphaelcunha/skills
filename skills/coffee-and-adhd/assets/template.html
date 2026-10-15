@@ -205,10 +205,14 @@ td.t{font-family:var(--head);font-weight:900;font-size:10.5pt;white-space:nowrap
       <div class="wx"><div>{{Today}}<big>{{29°/20°}}</big>{{77% rain}}</div><div>{{Tomorrow}}<big>{{27°/19°}}</big>{{85% rain}}</div></div>
       <p style="font-size:9.6pt">{{One line of advice.}} <span class="src">({{Source}})</span></p>
       <div class="hr2"></div>
-      <!-- Optional: only if the reader's calendar is available -->
+      <!-- Optional: only with connected sources (references/connectors.md). Timed calendar rows first,
+           then up to 4 untimed desk rows. Times, titles, ids and counts only: never message text or names. -->
       <div class="section">{{Your day}}</div>
       <table>
         <tr><td class="t">{{10:30}}</td><td>{{Event title}}</td></tr>
+        <tr><td class="t">{{Due}}</td><td>{{AI-1342 · short task title}}</td></tr>
+        <tr><td class="t">{{PRs}}</td><td>{{2 waiting for your review}}</td></tr>
+        <tr><td class="t">{{Mail}}</td><td>{{7 unread, 2 need a reply}}</td></tr>
       </table>
       <div class="hr2"></div>
       <div class="section">{{Rotating topic 2}}</div>

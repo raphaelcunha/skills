@@ -1,6 +1,6 @@
 # Coffee & ADHD setup
 
-Keep the setup short: 5 questions in one round, each with a default the reader can just accept. Someone with ADHD doesn't want a long form before their coffee.
+Keep the setup short: 5 questions in one round (a 6th about connected apps), each with a default the reader can just accept. Someone with ADHD doesn't want a long form before their coffee.
 
 **Ask the questions in the reader's language.** Before question 1 is answered, use the language they're writing in. The suggested wording below comes in English; translate it naturally.
 
@@ -54,6 +54,22 @@ The first 2–3 interests become fixed sections, and the rest rotate.
 
 Suggest an early time (e.g. 6:45) and confirm the time zone.
 
+### 6. Connected apps
+
+Before asking, run the discovery in `references/connectors.md`. Then:
+
+> I can also read your apps to fill the **Your day** box: today's meetings, what's due, PRs waiting for you, how many emails and mentions came in. Only counts and titles go on paper, never message text, and I never send or change anything. Which ones should I use?
+> - **Google Calendar** (connected): today's schedule (on)
+> - **Linear** (connected): tasks due today (on)
+> - **Gmail** (connected): unread count, emails needing a reply, newsletter leads (off)
+> - **Slack** (connected): mentions and DMs, as a count (off)
+>
+> Not connected yet, but they'd help you: **GitHub** (PRs waiting for your review), **Granola** (to-dos from yesterday's meetings). To connect: *Settings → Connectors* (Claude apps) or `/mcp` (Claude Code).
+
+- List only what discovery actually found; the apps above are just an example. Defaults: calendar, tasks and code on; mail, chat, meeting notes and docs off.
+- Suggest at most 3 missing apps, chosen from the profile. If nothing is connected and nothing fits, skip the question entirely.
+- With `AskUserQuestion`, use a multi-select question.
+
 ## Config file
 
 Save `coffee-and-adhd.json` in the delivery folder. If there's no folder, save it to `~/.coffee-and-adhd/`.
@@ -76,12 +92,22 @@ Save `coffee-and-adhd.json` in the delivery folder. If there's no folder, save i
     "printer": "Printer_Name"
   },
   "routine": { "type": "app", "time": "06:45", "days": "every" },
+  "sources": {
+    "calendar": { "enabled": true },
+    "tasks": { "enabled": true, "tool": "linear" },
+    "code": { "enabled": true, "tool": "github", "repos": ["ana/solar-app"] },
+    "mail": { "enabled": true, "tool": "gmail", "story_leads": true },
+    "chat": { "enabled": false, "tool": "slack" },
+    "meetings": { "enabled": false },
+    "docs": { "enabled": false }
+  },
   "start_date": "2026-10-15"
 }
 ```
 
 - `profile`: use `"memory"` to re-read the LLM's memory on each edition, or `"config"` to rely only on this file.
 - `start_date`: the date of the first edition. The edition number is (today − start_date) in days + 1.
+- `sources`: which connected apps may feed the paper (see `references/connectors.md`). `tool` is a hint for which connector to use when there are several; leave it out to use whichever is connected. `repos` limits the code source to the repositories the reader cares about. `story_leads` lets newsletters in the mail suggest stories, always cited from the public source. **A config without `sources`** (made before this option existed) means calendar only, as before; no need to redo the setup.
 - Don't store anything sensitive here, only what's needed to choose stories.
 
 ## Creating the routine
