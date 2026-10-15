@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Hifeniza, renderiza e confere o jornal.
+"""Hyphenate, render and check the newspaper.
 
-Uso:
-  python3 render.py <pasta_com_index.html> <saida.pdf> [--lang pt-BR] [--png]
+Usage:
+  python3 render.py <folder_with_index.html> <output.pdf> [--lang pt-BR] [--png]
 
-O que faz:
-  1. Copia as fontes da skill para <pasta>/build/fonts.
-  2. Insere hifenização suave (&shy;) no texto com pyphen — o Chromium no
-     Linux não hifeniza português sozinho, e sem isso colunas justificadas
-     estreitas ficam cheias de buracos.
-  3. Gera o PDF A4 com Playwright/Chromium (printBackground, margens 12 mm).
-  4. Mede cada .col de cada .page e avisa se o conteúdo passou do limite
-     (o .page tem overflow:hidden, então o texto que vaza some calado).
-  5. Informa o número de páginas e, com --png, gera prévias PNG.
+What it does:
+  1. Copies the skill's fonts into <folder>/build/fonts.
+  2. Inserts soft hyphens (&shy;) into the text with pyphen. Chromium on Linux
+     doesn't hyphenate Portuguese or Spanish on its own, and narrow justified
+     columns end up full of gaps without this.
+  3. Renders an A4 PDF with Playwright/Chromium (printBackground, 12 mm margins).
+  4. Measures every .col on every .page and warns if content goes past the limit
+     (.page has overflow:hidden, so overflowing text silently disappears).
+  5. Reports the page count and, with --png, writes PNG previews.
 """
 import os, re, shutil, subprocess, sys
 
@@ -35,7 +35,7 @@ def hyphenate(src, dst, lang):
     from bs4 import BeautifulSoup, NavigableString, Comment, Doctype
     code = LANG_MAP.get(lang.lower(), lang.replace("-", "_"))
     if code not in pyphen.LANGUAGES:
-        shutil.copy(src, dst); print(f"[aviso] sem dicionário de hifenização para {lang}; seguindo sem"); return
+        shutil.copy(src, dst); print(f"[warning] no hyphenation dictionary for {lang}; continuing without it"); return
     d = pyphen.Pyphen(lang=code)
     soup = BeautifulSoup(open(src, encoding="utf-8").read(), "html.parser")
     skip = {"style", "script", "title", "h1", "h2", "h3", "h4", "th"}
@@ -53,7 +53,7 @@ def hyphenate(src, dst, lang):
 
 MEASURE = """() => [...document.querySelectorAll('.page')].map(pg => {
   const P = pg.getBoundingClientRect();
-  const stop = pg.querySelector('.fontes') || pg.querySelector('.foot');
+  const stop = pg.querySelector('.sources') || pg.querySelector('.foot');
   const limit = stop ? stop.getBoundingClientRect().top - P.top : P.height;
   const cols = [...pg.querySelectorAll('.col')].map(c => {
     let m = 0; c.querySelectorAll('*').forEach(e => { const r = e.getBoundingClientRect(); if (r.height > 0) m = Math.max(m, r.bottom - P.top); });
@@ -93,20 +93,20 @@ def main():
     for i in info:
         over = [c - i["limit"] for c in i["cols"]]
         status = ", ".join(f"col{n+1}: {'+' if o > 0 else ''}{o}px" for n, o in enumerate(over))
-        print(f"{i['page']}: limite {i['limit']}px | {status}" + (f" | ESTOURO LATERAL {i['wide']}px" if i["wide"] > 0 else ""))
+        print(f"{i['page']}: limit {i['limit']}px | {status}" + (f" | HORIZONTAL OVERFLOW {i['wide']}px" if i["wide"] > 0 else ""))
         if any(o > 0 for o in over) or i["wide"] > 0:
             ok = False
     pages = subprocess.run(["pdfinfo", out], capture_output=True, text=True).stdout
     n = re.search(r"Pages:\s+(\d+)", pages)
     n = int(n.group(1)) if n else -1
-    print(f"Páginas: {n}")
+    print(f"Pages: {n}")
     if n > 2:
         ok = False
     if "--png" in sys.argv:
         prefix = os.path.join(build, "preview")
         subprocess.run(["pdftoppm", "-r", "80", "-png", out, prefix])
-        print("Prévias:", ", ".join(sorted(f for f in os.listdir(build) if f.startswith("preview"))))
-    print("OK" if ok else "AJUSTAR: conteúdo vazando (valores positivos) ou mais de 2 páginas")
+        print("Previews:", ", ".join(sorted(f for f in os.listdir(build) if f.startswith("preview"))))
+    print("OK" if ok else "FIX: content overflowing (positive values) or more than 2 pages")
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="{{pt-BR}}">
+<html lang="{{language, e.g. pt-BR | en | es}}">
 <head>
 <meta charset="utf-8">
-<title>{{NOME DO JORNAL — DD/MM/AAAA}}</title>
+<title>{{NEWSPAPER NAME — date}}</title>
 <style>
 @font-face{font-family:"Gothic";src:url(fonts/unifrakturmaguntia-latin-400-normal.woff2) format("woff2");}
 @font-face{font-family:"Caslon";src:url(fonts/libre-caslon-text-latin-400-normal.woff2) format("woff2");font-weight:400;font-style:normal}
@@ -57,8 +57,8 @@ ol.ia li:last-child{border-bottom:none}
 ol.ia li::before{content:"■ ";font-size:7pt}
 ol.ia b{font-family:"Caslon",serif}
 .pull{font-style:italic;font-size:10.5pt;line-height:1.25;text-align:center;border-top:1.4px solid #111;border-bottom:1.4px solid #111;padding:1.4mm 1mm;margin:1.4mm 0 2mm;column-span:none}
-.fontes{position:absolute;bottom:0;left:0;right:0;border-top:3px double #111;padding-top:1mm;font-size:6.1pt;line-height:1.25;color:#333;column-count:2;column-gap:5mm;word-break:break-all}
-.fontes b{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.06em;font-size:7pt;color:#111}
+.sources{position:absolute;bottom:0;left:0;right:0;border-top:3px double #111;padding-top:1mm;font-size:6.1pt;line-height:1.25;color:#333;column-count:2;column-gap:5mm;word-break:break-all}
+.sources b{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.06em;font-size:7pt;color:#111}
 .foot{position:absolute;bottom:0;left:0;right:0;border-top:.6px solid #111;padding-top:.6mm;font-family:"OST",serif;font-variant:small-caps;font-size:7pt;display:flex;justify-content:space-between;color:#333}
 .p2head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px double #111;padding-bottom:.6mm;font-family:"OST",serif;font-variant:small-caps;font-size:8pt}
 .p2head .np{font-family:"Gothic",serif;font-size:19pt;font-variant:normal}
@@ -69,115 +69,116 @@ ol.ia b{font-family:"Caslon",serif}
 <body>
 
 <!-- =====================================================================
-  TEMPLATE DO JORNAL PESSOAL — copie para a pasta de trabalho como index.html
-  e substitua tudo que estiver entre {{ }}. Apague blocos que não usar.
-  Classes úteis: .story .kicker h2/h3 .byline .dropcap .multi2 .multi .box
+  COFFEE & ADHD TEMPLATE — copy to your work folder as index.html and
+  replace everything inside {{ }}. Delete blocks you don't use. Translate the
+  fixed labels (section names, "Page 2", "Sources"...) into the reader's language.
+  Useful classes: .story .kicker h2/h3 .byline .dropcap .multi2 .multi .box
   .box.white .orn table/th/td td.n .ear .section .pull .src
-  Fontes ficam em ./fonts/ (o render.py copia automaticamente).
+  Fonts live in ./fonts/ (render.py copies them automatically).
 ====================================================================== -->
 
-<!-- ================= PÁGINA 1 ================= -->
+<!-- ================= PAGE 1 ================= -->
 <div class="page" id="p1">
   <div class="mast">
     <div class="ear">
-      <h4>{{O Tempo em CIDADE}}</h4>
+      <h4>{{Weather in CITY}}</h4>
       <div class="big">{{MAX° / MIN°}}</div>
-      {{Céu, chance de chuva, umidade/alerta}}<br>
-      <i>{{Amanhã: ...}}</i>
+      {{Sky, chance of rain, humidity/alert}}<br>
+      <i>{{Tomorrow: ...}}</i>
     </div>
-    <div class="nameplate">{{NOME DO JORNAL}}</div>
+    <div class="nameplate">{{NEWSPAPER NAME}}</div>
     <div class="ear">
-      <h4>{{Hoje na Tela / Destaque}}</h4>
-      <div class="big">{{HORÁRIO ou NÚMERO}}</div>
-      {{Linha 1}}<br>{{Linha 2}}<br><i>{{Onde ver}}</i>
+      <h4>{{On Screen Today / Highlight}}</h4>
+      <div class="big">{{TIME or NUMBER}}</div>
+      {{Line 1}}<br>{{Line 2}}<br><i>{{Where to watch}}</i>
     </div>
   </div>
   <div class="dateline">
-    <span>{{Cidade, dia-da-semana, DD de mês de AAAA}}</span>
-    <span><i>“{{Lema curto próprio}}”</i></span>
-    <span>{{Edição nº N}}</span>
+    <span>{{City, weekday, full date}}</span>
+    <span><i>“{{Short original motto}}”</i></span>
+    <span>{{Edition No. N}}</span>
   </div>
 
   <div class="cols" style="grid-template-columns:minmax(0,2.25fr) minmax(0,1fr) minmax(0,1.12fr)">
-    <!-- MANCHETE -->
+    <!-- HEADLINE -->
     <div class="col">
-      <div class="kicker">{{Chapéu da manchete}}</div>
-      <h1>{{Título da manchete}}</h1>
-      <div class="deck">{{Linha fina}}</div>
-      <div class="byline">Por {{NOME DO JORNAL}} · {{Editoria}}</div>
+      <div class="kicker">{{Headline kicker}}</div>
+      <h1>{{Headline}}</h1>
+      <div class="deck">{{Deck}}</div>
+      <div class="byline">{{By}} {{NEWSPAPER NAME}} · {{Section}}</div>
       <div class="multi2">
-        <p class="dropcap">{{Primeiro parágrafo. (Fonte)}}</p>
-        <p>{{Parágrafo. (Fonte)}}</p>
-        <div class="pull">“{{Frase de destaque tirada do próprio texto}}”</div>
-        <p>{{Parágrafo final. (Fonte)}}</p>
+        <p class="dropcap">{{First paragraph. (Source)}}</p>
+        <p>{{Paragraph. (Source)}}</p>
+        <div class="pull">“{{Pull quote taken from the story itself}}”</div>
+        <p>{{Final paragraph. (Source)}}</p>
       </div>
       <table style="margin-top:1.4mm">
-        <tr><th colspan="4">{{Tabela opcional: placar, números, agenda}}</th></tr>
-        <tr><td>{{A}}</td><td class="n">{{2 × 0}}</td><td>{{B}}</td><td>{{detalhe}}</td></tr>
+        <tr><th colspan="4">{{Optional table: scores, numbers, schedule}}</th></tr>
+        <tr><td>{{A}}</td><td class="n">{{2 × 0}}</td><td>{{B}}</td><td>{{detail}}</td></tr>
       </table>
     </div>
 
-    <!-- COLUNA LATERAL 1 -->
+    <!-- SIDE COLUMN 1 -->
     <div class="col">
-      <div class="section">{{Editoria 1}}</div>
+      <div class="section">{{Section 1}}</div>
       <div class="story">
-        <div class="kicker">{{Chapéu}}</div>
-        <h3>{{Título}}</h3>
-        <p>{{Texto. (Fonte)}}</p>
+        <div class="kicker">{{Kicker}}</div>
+        <h3>{{Title}}</h3>
+        <p>{{Text. (Source)}}</p>
       </div>
     </div>
 
-    <!-- COLUNA LATERAL 2 (ex.: resumo em itens) -->
+    <!-- SIDE COLUMN 2 (e.g. briefs as a list) -->
     <div class="col">
-      <div class="section">{{Editoria 2 em Resumo}}</div>
+      <div class="section">{{Section 2 in brief}}</div>
       <ol class="ia">
-        <li><b>{{Título curto.}}</b> {{Texto.}} <span class="src">({{Fonte}})</span></li>
+        <li><b>{{Short title.}}</b> {{Text.}} <span class="src">({{Source}})</span></li>
       </ol>
     </div>
   </div>
-  <div class="foot"><span>{{NOME DO JORNAL}} · {{Edição nº N}}</span><span>❧</span><span>{{Continua na página 2: ...}}</span></div>
+  <div class="foot"><span>{{NEWSPAPER NAME}} · {{Edition No. N}}</span><span>❧</span><span>{{Continued on page 2: ...}}</span></div>
 </div>
 
-<!-- ================= PÁGINA 2 ================= -->
+<!-- ================= PAGE 2 ================= -->
 <div class="page" id="p2">
-  <div class="p2head"><span>{{Dia-da-semana, DD de mês de AAAA}}</span><span class="np">{{NOME DO JORNAL}}</span><span>Página 2</span></div>
+  <div class="p2head"><span>{{Weekday, full date}}</span><span class="np">{{NEWSPAPER NAME}}</span><span>{{Page 2}}</span></div>
 
   <div class="cols" style="grid-template-columns:minmax(0,2.05fr) minmax(0,1fr) minmax(0,1fr)">
     <div class="col">
-      <div class="section">{{Cidade: NOME-UF}}</div>
+      <div class="section">{{City: NAME}}</div>
       <div class="story">
-        <div class="kicker">{{Chapéu}}</div>
-        <h2>{{Título principal local}}</h2>
-        <div class="multi2"><p>{{Texto. (Fonte)}}</p></div>
+        <div class="kicker">{{Kicker}}</div>
+        <h2>{{Main local headline}}</h2>
+        <div class="multi2"><p>{{Text. (Source)}}</p></div>
       </div>
       <div class="box white">
-        <h3>{{Agenda cultural ❧ datas}}</h3>
+        <h3>{{Cultural agenda ❧ dates}}</h3>
         <table class="agenda" style="margin:0">
-          <tr><th>Quando</th><th>O quê e onde</th></tr>
-          <tr><td>{{20h}}</td><td><b>{{Evento}}</b>: {{local, preço}}</td></tr>
+          <tr><th>{{When}}</th><th>{{What & where}}</th></tr>
+          <tr><td>{{8 pm}}</td><td><b>{{Event}}</b>: {{venue, price}}</td></tr>
         </table>
       </div>
     </div>
 
     <div class="col">
-      <div class="section">{{Pauta dinâmica}}</div>
-      <div class="story"><div class="kicker">{{Chapéu}}</div><h3>{{Título}}</h3><p>{{Texto. (Fonte)}}</p></div>
+      <div class="section">{{Rotating topic}}</div>
+      <div class="story"><div class="kicker">{{Kicker}}</div><h3>{{Title}}</h3><p>{{Text. (Source)}}</p></div>
     </div>
 
     <div class="col">
-      <div class="section">{{Pauta dinâmica 2}}</div>
-      <div class="story"><div class="kicker">{{Chapéu}}</div><h3>{{Título}}</h3><p>{{Texto. (Fonte)}}</p></div>
-      <!-- Opcional: só se a agenda do leitor estiver disponível -->
+      <div class="section">{{Rotating topic 2}}</div>
+      <div class="story"><div class="kicker">{{Kicker}}</div><h3>{{Title}}</h3><p>{{Text. (Source)}}</p></div>
+      <!-- Optional: only if the reader's calendar is available -->
       <div class="box">
-        <h3>Sua agenda de hoje</h3>
+        <h3>{{Your day}}</h3>
         <table class="agenda" style="margin:0">
-          <tr><td>{{10h30}}</td><td>{{Título do compromisso}}</td></tr>
+          <tr><td>{{10:30}}</td><td>{{Event title}}</td></tr>
         </table>
       </div>
     </div>
   </div>
 
-  <div class="fontes"><b>Fontes</b> · {{dominio.com/caminho-curto}} · {{...}}</div>
+  <div class="sources"><b>{{Sources}}</b> · {{domain.com/short-path}} · {{...}}</div>
 </div>
 
 </body>

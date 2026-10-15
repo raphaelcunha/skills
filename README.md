@@ -1,14 +1,14 @@
 # skills
 
-Skills para o Claude e outros agentes compatíveis com o formato [Agent Skills](https://skills.sh).
+Skills for Claude and other agents that support the [Agent Skills](https://skills.sh) format.
 
-## Instalação
+## Install
 
 ```bash
 npx skills add raphaelcunha/skills
 ```
 
-Para instalar só uma skill:
+To install a single skill:
 
 ```bash
 npx skills add raphaelcunha/skills --skill coffee-and-adhd
@@ -18,36 +18,37 @@ npx skills add raphaelcunha/skills --skill coffee-and-adhd
 
 ### `coffee-and-adhd` — Coffee & ADHD
 
-Um jornal diário feito só para você. Sai em PDF A4, com até 2 páginas, em preto e branco, no estilo de um jornal impresso clássico, e pode ir direto para a impressora.
+A daily newspaper made just for you. It comes out as an A4 PDF of up to 2 pages, in black and white, styled like a classic printed broadsheet, and it can go straight to your printer.
 
-- **Setup rápido:** na primeira vez, a skill faz cerca de 5 perguntas, todas com uma resposta padrão:
-  1. De onde vem o seu perfil? Pode ser a memória do Claude, a memória do Codex/ChatGPT ou de outra LLM (você cola o que ela sabe sobre você) ou respostas na hora.
-  2. Quais são seus interesses e sua cidade?
-  3. Qual o nome e o idioma do jornal? O padrão é "Coffee & ADHD".
-  4. Onde salvar o PDF, e se deve imprimir no final, em qual impressora.
-  5. Quer uma rotina diária? Pode ser uma tarefa agendada do app, cron/launchd no seu computador ou só sob demanda.
+- **Quick setup:** on the first run the skill asks about 5 questions, each with a default you can simply accept:
+  1. Which language? It suggests Brazilian Portuguese (PT-BR), English or Spanish.
+  2. Where should your profile come from? Claude's memory, Codex/ChatGPT's or another LLM's memory (you paste what it knows about you), or answers on the spot.
+  3. Your interests and city.
+  4. The newspaper's name, which defaults to "Coffee & ADHD" ("Café & TDAH" in Portuguese or Spanish). Also: where to save the PDF, and whether to print it at the end and on which printer.
+  5. Whether to set up a daily routine: an app scheduled task, cron/launchd on your computer, or on demand only.
 
-  As respostas ficam em `coffee-and-adhd.json`. Assim a rotina funciona com qualquer agente.
-- **Apuração:** só notícias das últimas 24–48 h, com a fonte em cada nota. Se a skill não achar um dado, diz que não achou em vez de inventar.
-- **O que a edição traz:** tempo local, página da cidade com agenda cultural e, se o calendário estiver conectado, os compromissos do dia.
-- **Layout:** template HTML com fontes livres embutidas e o script `scripts/render.py`. O script hifeniza o texto, gera o PDF com Playwright/Chromium e avisa se alguma coluna estourou ou se passou de 2 páginas.
-- **Impressão (opcional):** usa o `lp` do seu computador (macOS/Linux), em A4 e em tons de cinza.
+  Your answers are saved to `coffee-and-adhd.json`, so the routine works with any agent.
+- **Reporting:** only news from the last 24–48 hours, with a source on every item. If the skill can't find a fact, it says so instead of making one up.
+- **What's in an edition:** local weather, a city page with cultural events and, if your calendar is connected, today's schedule.
+- **Layout:** an HTML template with embedded open-source fonts, plus `scripts/render.py`. The script hyphenates the text (pt-BR, en, es and more), renders the PDF with Playwright/Chromium, and warns if a column overflows or the paper goes past 2 pages.
+- **Printing (optional):** uses `lp` on your computer (macOS/Linux), in A4 and greyscale.
 
-Exemplos de pedido:
+Example requests:
 
-> "configura meu Coffee & ADHD"
+> "set up my Coffee & ADHD"
+> "make today's edition of my newspaper"
 > "monta meu jornal de hoje"
 
-**Requisitos:** Python 3, `playwright` (com Chromium), `pyphen`, `beautifulsoup4` e `pdfinfo`/`pdftoppm` (poppler). Para imprimir, o agente precisa conseguir rodar comandos no computador onde a impressora está instalada.
+**Requirements:** Python 3, `playwright` (with Chromium), `pyphen`, `beautifulsoup4`, and `pdfinfo`/`pdftoppm` (poppler). To print, the agent must be able to run commands on the computer the printer is attached to.
 
-## Licença
+## License
 
-Código e instruções sob a licença MIT (veja `LICENSE`).
+Code and instructions are MIT-licensed (see `LICENSE`).
 
-As fontes em `skills/coffee-and-adhd/assets/fonts/` são distribuídas sob a [SIL Open Font License 1.1](skills/coffee-and-adhd/assets/fonts/OFL-LICENSE.txt):
+The fonts in `skills/coffee-and-adhd/assets/fonts/` are distributed under the [SIL Open Font License 1.1](skills/coffee-and-adhd/assets/fonts/OFL-LICENSE.txt):
 
-- Libre Caslon Text, de Pablo Impallari
-- Old Standard TT, de Alexey Kryukov
-- UnifrakturMaguntia, de j. 'mach' wust
+- Libre Caslon Text, by Pablo Impallari
+- Old Standard TT, by Alexey Kryukov
+- UnifrakturMaguntia, by j. 'mach' wust
 
-Os arquivos vêm dos pacotes [Fontsource](https://fontsource.org).
+The font files come from the [Fontsource](https://fontsource.org) packages.
