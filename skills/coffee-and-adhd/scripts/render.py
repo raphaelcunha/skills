@@ -5,11 +5,13 @@ Usage:
   python3 render.py <folder_with_index.html> <output.pdf> [--lang pt-BR] [--png]
 
 What it does:
-  1. Copies the skill's fonts into <folder>/build/fonts.
+  1. Copies assets/fonts into <folder>/build/fonts, if present (the default
+     template embeds its fonts as base64, so this is usually a no-op).
   2. Inserts soft hyphens (&shy;) into the text with pyphen. Chromium on Linux
      doesn't hyphenate Portuguese or Spanish on its own, and narrow justified
      columns end up full of gaps without this.
-  3. Renders an A4 PDF with Playwright/Chromium (printBackground, 12 mm margins).
+  3. Renders an A4 PDF with Playwright/Chromium (printBackground, page size and
+     margins taken from the template's CSS).
   4. Measures every .col on every .page and warns if content goes past the limit
      (.page has overflow:hidden, so overflowing text silently disappears).
   5. Reports the page count and, with --png, writes PNG previews.
@@ -51,16 +53,16 @@ def hyphenate(src, dst, lang):
     open(dst, "w", encoding="utf-8").write(str(soup))
 
 
-MEASURE = """() => [...document.querySelectorAll('.page')].map(pg => {
+MEASURE = """() => [...document.querySelectorAll('.page')].map((pg, idx) => {
   const P = pg.getBoundingClientRect();
-  const stop = pg.querySelector('.sources') || pg.querySelector('.foot');
+  const stop = pg.querySelector('.sources') || pg.querySelector('.foot') || pg.querySelector('.pgfoot');
   const limit = stop ? stop.getBoundingClientRect().top - P.top : P.height;
   const cols = [...pg.querySelectorAll('.col')].map(c => {
     let m = 0; c.querySelectorAll('*').forEach(e => { const r = e.getBoundingClientRect(); if (r.height > 0) m = Math.max(m, r.bottom - P.top); });
     return Math.round(m);
   });
   const wide = Math.round(pg.scrollWidth - pg.clientWidth);
-  return {page: pg.id || '?', limit: Math.round(limit), cols, wide};
+  return {page: pg.id || ('p' + (idx + 1)), limit: Math.round(limit), cols, wide};
 })"""
 
 
@@ -75,7 +77,8 @@ def main():
         args = [a for a in args if a != lang]
     build = os.path.join(work, "build")
     os.makedirs(build, exist_ok=True)
-    shutil.copytree(FONTS, os.path.join(build, "fonts"), dirs_exist_ok=True)
+    if os.path.isdir(FONTS):
+        shutil.copytree(FONTS, os.path.join(build, "fonts"), dirs_exist_ok=True)
     hyphenate(os.path.join(work, "index.html"), os.path.join(build, "index.html"), lang)
 
     from playwright.sync_api import sync_playwright
@@ -85,8 +88,9 @@ def main():
         pg.goto("file://" + os.path.join(build, "index.html"))
         pg.wait_for_timeout(800)
         info = pg.evaluate(MEASURE)
-        pg.pdf(path=out, format="A4", print_background=True,
-               margin=dict(top="12mm", bottom="12mm", left="12mm", right="12mm"))
+        # The template sets @page{size:A4;margin:0} and pads each .page itself.
+        pg.pdf(path=out, format="A4", print_background=True, prefer_css_page_size=True,
+               margin=dict(top="0", bottom="0", left="0", right="0"))
         b.close()
 
     ok = True

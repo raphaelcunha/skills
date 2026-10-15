@@ -1,4 +1,10 @@
-Copyright 2012 The Libre Caslon Text Project Authors (https://github.com/impallari/Libre-Caslon-Text) LibreCaslonText-Italic.ttf: Copyright 2012 The Libre Caslon Text Project Authors (https://github.com/impallari/Libre-Caslon-Text) LibreCaslonText-Bold.ttf: Copyright 2012 The Libre Caslon Text Project Authors (https://github.com/impallari/Libre-Caslon-Text)
+Fonts embedded (as base64) in assets/template.html:
+
+- Alfa Slab One — Copyright (c) 2011, JM Solé
+- Rokkitt — Copyright 2016 The Rokkitt Project Authors (Vernon Adams)
+- Bitter — Copyright 2020 The Bitter Project Authors (Huerta Tipográfica)
+
+Files obtained from the Fontsource packages (https://fontsource.org).
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

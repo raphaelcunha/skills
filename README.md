@@ -20,7 +20,7 @@ npx skills add raphaelcunha/skills --skill coffee-and-adhd
 
 ### `coffee-and-adhd` — Coffee & ADHD
 
-A daily newspaper made just for you. It comes out as an A4 PDF of up to 2 pages, in black and white, styled like a classic printed broadsheet, and it can go straight to your printer.
+A daily newspaper made just for you. It comes out as an A4 PDF of up to 2 pages, in black and white, with a print-optimized layout (10 pt serif body, a quick-read summary at the top, one illustration per edition), and it can go straight to your printer.
 
 <p align="center">
   <img src="docs/sample-page-1.png" alt="Coffee & ADHD sample edition, page 1" width="48%">
@@ -39,7 +39,7 @@ A daily newspaper made just for you. It comes out as an A4 PDF of up to 2 pages,
   Your answers are saved to `coffee-and-adhd.json`, so the routine works with any agent.
 - **Reporting:** only news from the last 24–48 hours, with a source on every item. If the skill can't find a fact, it says so instead of making one up.
 - **What's in an edition:** local weather, a city page with cultural events and, if your calendar is connected, today's schedule.
-- **Layout:** an HTML template with embedded open-source fonts, plus `scripts/render.py`. The script hyphenates the text (pt-BR, en, es and more), renders the PDF with Playwright/Chromium, and warns if a column overflows or the paper goes past 2 pages.
+- **Layout:** an HTML template with embedded open-source fonts (Alfa Slab One, Rokkitt, Bitter), a small library of black-and-white illustrations, and `scripts/render.py`. The script hyphenates the text (pt-BR, en, es and more), renders the PDF with Playwright/Chromium, and warns if a column overflows or the paper goes past 2 pages.
 - **Printing (optional):** uses `lp` on your computer (macOS/Linux), in A4 and greyscale.
 
 Example requests:
@@ -54,10 +54,10 @@ Example requests:
 
 Code and instructions are MIT-licensed (see `LICENSE`).
 
-The fonts in `skills/coffee-and-adhd/assets/fonts/` are distributed under the [SIL Open Font License 1.1](skills/coffee-and-adhd/assets/fonts/OFL-LICENSE.txt):
+The fonts embedded in `skills/coffee-and-adhd/assets/template.html` are distributed under the [SIL Open Font License 1.1](skills/coffee-and-adhd/assets/FONTS-LICENSE.txt):
 
-- Libre Caslon Text, by Pablo Impallari
-- Old Standard TT, by Alexey Kryukov
-- UnifrakturMaguntia, by j. 'mach' wust
+- Alfa Slab One, by JM Solé
+- Rokkitt, by Vernon Adams
+- Bitter, by Huerta Tipográfica
 
 The font files come from the [Fontsource](https://fontsource.org) packages.

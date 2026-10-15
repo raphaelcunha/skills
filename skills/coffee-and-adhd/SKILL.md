@@ -1,6 +1,6 @@
 ---
 name: coffee-and-adhd
-description: "Coffee & ADHD: builds a personalized daily newspaper as a print-ready PDF (A4, max 2 pages, black and white, classic broadsheet style) for anyone, with a short ~5-question setup (language — Brazilian Portuguese, English or Spanish; whether to use Claude's memory, Codex/ChatGPT's or another LLM's; interests and city; where to save the PDF and whether to print; whether to schedule a daily routine). Researches today's news on the web with a source on every item, adds local weather and today's calendar, saves the PDF and can send it straight to the printer. ALWAYS use this when the user asks for \"Coffee & ADHD\", \"Café & TDAH\", \"my newspaper\", \"daily paper\", \"today's edition\", \"personal newspaper\", \"news to print\", \"meu jornal\", \"jornal do dia\", \"mi periódico\", \"set up my newspaper\", or wants to build or schedule a daily edition with the news that matters to them, even without saying \"skill\" or \"PDF\"."
+description: "Coffee & ADHD: builds a personalized daily newspaper as a print-ready PDF (A4, max 2 pages, black and white, print-optimized layout with a quick-read summary) for anyone, with a short ~5-question setup (language — Brazilian Portuguese, English or Spanish; whether to use Claude's memory, Codex/ChatGPT's or another LLM's; interests and city; where to save the PDF and whether to print; whether to schedule a daily routine). Researches today's news on the web with a source on every item, adds local weather and today's calendar, saves the PDF and can send it straight to the printer. ALWAYS use this when the user asks for \"Coffee & ADHD\", \"Café & TDAH\", \"my newspaper\", \"daily paper\", \"today's edition\", \"personal newspaper\", \"news to print\", \"meu jornal\", \"jornal do dia\", \"mi periódico\", \"set up my newspaper\", or wants to build or schedule a daily edition with the news that matters to them, even without saying \"skill\" or \"PDF\"."
 ---
 
 # Coffee & ADHD
@@ -72,14 +72,20 @@ Run searches in parallel (WebSearch, plus WebFetch on the most promising pages).
 
 ## 4. Layout
 
-Use the skill's template and script. They already handle fonts, hyphenation and size checks.
+Use the skill's template and script. The template is a print-optimized layout built for reading on paper: white paper with black ink, a 10 pt Bitter serif body with 1.42 line height, columns of 35–45 characters, justified and hyphenated text, sentence-case headlines in Alfa Slab One, labels in Rokkitt, and a "Today in brief" box for a 30-second read. The fonts are embedded in the template, so it needs no network.
 
-1. Copy `assets/template.html` to a working folder as `index.html` and fill in the `{{ }}` fields. Delete unused blocks and duplicate `.story` blocks as needed. **Translate every fixed label** (section names, "Edition No.", "Page 2", "Sources", "By ...") into the reader's language.
-2. **Nameplate:** the name from the config (default "Coffee & ADHD"), in the blackletter font. Write a short original motto. **Never** use a real newspaper's name, logo or slogan: the reader will print it and show it to others, and imitating a real brand is copying.
-3. **Date strip:** "[City], [weekday], [full date]" · motto · "Edition No. N". N = (today − `start_date`) in days + 1. If that field is missing, count the earlier editions in the delivery folder (`*-YYYY-MM-DD.pdf`) and add 1.
-4. **Page 1:** a weather ear (left) and a highlight-of-the-day ear (right); the headline story in 2 columns with a drop cap, a deck and a byline; two side columns with the strongest fixed topics, one of them as a list of short items.
-5. **Page 2:** the local page (city news plus a cultural-events table), rotating topics, the reader's calendar (if any), and a "Sources" footer with the main URLs in small type (no `https://`, shortened).
-6. Black and grey only, no external images. Use rules, boxes, tables for scores and schedules, and ornaments ❧ ✦ ■.
+1. Copy `assets/template.html` to a working folder as `index.html` and fill in the `{{ }}` fields. Keep the `<style>`, the masthead and the structure intact. Change only text and data. Delete unused blocks and duplicate `.item` blocks as needed. **Translate every fixed label** ("Today in brief", "Edition No.", "Page 2", "Sources", "By", section names) into the reader's language.
+2. **Masthead (keep it clean):** the newspaper name from the config, on one line (default "Coffee & ADHD"), and below it a single `.dateline` with three items: city | weekday and full date | "Edition No. N". Don't add ears, mottos, weather boxes or extra rules up there; the weather lives on page 2. **Never** use a real newspaper's name, logo or slogan. The reader will print it and show it to others, and imitating a real brand is copying. N = (today − `start_date`) in days + 1. If that field is missing, count the earlier editions in the delivery folder (`*-YYYY-MM-DD.pdf`) and add 1.
+3. **Page 1:**
+   - "Today in brief": 5–6 one-line items; the last one can point to page 2.
+   - The headline story in the wide column: kicker, headline (sentence case, ~9 words max), an illustration, a deck, a byline and 2 text columns with a drop cap.
+   - The side column: the second fixed topic, plus a box for something that should always show up, even if it's "nothing new in the last 24 hours".
+4. **Illustration:** only on the headline. Pick one from `assets/illustrations.html` (trophy, headset, AI chip, government building, truck, 3D printer, weather) and paste the `<svg>` inside `.fig`. If none fits, draw a new one in the same style: #111111 strokes, #ececec fills, hatching. No photos, logos, brands, real people or characters.
+5. **Page 2:**
+   - The wide column holds the rotating topics, the city page (with the cultural agenda in a table) and a "More on X" block.
+   - The side column holds weather (today and tomorrow), "Your day" (only with a calendar), one more rotating topic and, at the bottom, the dashed `.notes` box for low-priority extras such as scores. It sits at the bottom on purpose (`margin-top:auto`).
+   - The footer lists the source domains.
+6. **Greyscale only, always (it's for printing):** use just #111111 (ink), #444444/#555555 (grey text and bars), #b5b5b5 (rules), #ececec (light fills) and #ffffff. No colour, no sepia or cream, not even in SVGs. No external images.
 7. Set `lang` on `<html>` to the reader's language (`pt-BR`, `en`, `es`, ...).
 
 ### Render and check
@@ -91,8 +97,8 @@ python3 <skill>/scripts/render.py <work_folder> <output.pdf> --lang pt-BR --png
 
 For each column, the script prints how many pixels are left over (negative) or overflowing (positive), plus the page count and PNG previews in `<folder>/build/`. Because `.page` hides overflow, **overflowing text silently disappears from the PDF**. So:
 
-- If any column is positive or there are more than 2 pages: cut the least important items first, then shorten paragraphs, then move items into columns with room, and only last shrink the body size slightly (`body{font-size}`), never below 8.5 pt.
-- Open `preview-1.png` with the image-reading tool and **look at it**. Watch for a headline that runs too tall, a column that is too empty, an ear touching the nameplate, or a table overflowing. Re-render until it's clean. A large surplus in a column (−150 px or more) calls for one more short item there.
+- If any column is positive or there are more than 2 pages: cut the least important items first, then shorten paragraphs, then move items into columns with room. **Never shrink the fonts to make things fit**; the 10 pt body is the point of the layout. Low-priority extras go first (notes, culture, rotating topics), before the reader's fixed topics.
+- Open `preview-1.png` with the image-reading tool and **look at it**. Watch for a headline that runs too tall, a column that is too empty, something touching the footer, a table overflowing, or any colour. Re-render until it's clean. A large surplus in a column (−150 px or more) calls for one more short item there.
 - If Chromium is missing, `playwright install chromium` fixes it. If the network blocks that, point to the system Chromium with `executable_path`.
 
 ## 5. Delivery
