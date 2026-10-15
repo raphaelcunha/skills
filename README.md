@@ -22,6 +22,13 @@ npx skills add raphaelcunha/skills --skill coffee-and-adhd
 
 A daily newspaper made just for you. It comes out as an A4 PDF of up to 2 pages, in black and white, styled like a classic printed broadsheet, and it can go straight to your printer.
 
+<p align="center">
+  <img src="docs/sample-page-1.png" alt="Coffee & ADHD sample edition, page 1" width="48%">
+  <img src="docs/sample-page-2.png" alt="Coffee & ADHD sample edition, page 2" width="48%">
+</p>
+
+<p align="center"><sub>Sample edition for a reader who only follows AI, built from real news published Oct 6–14, 2026. No personal data. <a href="docs/sample-edition.pdf">Download the PDF</a>.</sub></p>
+
 - **Quick setup:** on the first run the skill asks about 5 questions, each with a default you can simply accept:
   1. Which language? It suggests Brazilian Portuguese (PT-BR), English or Spanish.
   2. Where should your profile come from? Claude's memory, Codex/ChatGPT's or another LLM's memory (you paste what it knows about you), or answers on the spot.
