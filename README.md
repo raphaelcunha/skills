@@ -1,5 +1,7 @@
 # skills
 
+[![skills.sh](https://skills.sh/b/raphaelcunha/skills)](https://skills.sh/raphaelcunha/skills)
+
 Skills for Claude and other agents that support the [Agent Skills](https://skills.sh) format.
 
 ## Install
