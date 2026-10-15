@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="{{pt-BR}}">
+<head>
+<meta charset="utf-8">
+<title>{{The NOME Chronicle — DD/MM/AAAA}}</title>
+<style>
+@font-face{font-family:"Gothic";src:url(fonts/unifrakturmaguntia-latin-400-normal.woff2) format("woff2");}
+@font-face{font-family:"Caslon";src:url(fonts/libre-caslon-text-latin-400-normal.woff2) format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"Caslon";src:url(fonts/libre-caslon-text-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic}
+@font-face{font-family:"Caslon";src:url(fonts/libre-caslon-text-latin-700-normal.woff2) format("woff2");font-weight:700;font-style:normal}
+@font-face{font-family:"OST";src:url(fonts/old-standard-tt-latin-400-normal.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"OST";src:url(fonts/old-standard-tt-latin-700-normal.woff2) format("woff2");font-weight:700}
+@page{size:A4;margin:12mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#111}
+body{font-family:"Caslon",Georgia,serif;font-size:8.8pt;line-height:1.28}
+.page{width:186mm;max-width:186mm;height:272mm;overflow:hidden;position:relative;page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto;break-after:auto}
+p{margin:0 0 .45em;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.src{font-style:italic;color:#444;white-space:nowrap}
+/* nameplate */
+.mast{display:grid;grid-template-columns:37mm minmax(0,1fr) 37mm;align-items:center;gap:3mm}
+.ear{border:1.2px solid #111;padding:1.4mm 1.8mm;font-size:7.2pt;line-height:1.25;text-align:center}
+.ear h4{margin:0 0 .6mm;font-family:"OST",serif;font-variant:small-caps;letter-spacing:.06em;font-size:8pt;border-bottom:.6px solid #111;padding-bottom:.6mm}
+.ear .big{font-family:"OST",serif;font-size:15pt;font-weight:700;line-height:1.05;margin:.6mm 0}
+.nameplate{font-family:"Gothic",serif;font-size:34pt;text-align:center;line-height:1;margin:0;white-space:nowrap}
+.dateline{margin-top:2mm;border-top:3px double #111;border-bottom:3px double #111;padding:1mm 0;display:flex;justify-content:space-between;font-family:"OST",serif;font-variant:small-caps;letter-spacing:.04em;font-size:8.6pt}
+.dateline i{font-variant:normal;font-family:"Caslon",serif}
+/* grid */
+.cols{display:grid;gap:0;margin-top:2.5mm}
+.col{padding:0 2.6mm;border-left:.6px solid #555}
+.col:first-child{padding-left:0;border-left:none}
+.col:last-child{padding-right:0}
+.kicker{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.08em;font-size:8pt;color:#333;margin:0 0 .4mm}
+h1{font-family:"Caslon",serif;font-weight:700;font-size:23.5pt;line-height:1.04;margin:0 0 1.5mm;text-align:left;letter-spacing:-.01em}
+.deck{font-style:italic;font-size:11pt;line-height:1.25;margin:0 0 1.6mm;color:#222}
+h2{font-family:"Caslon",serif;font-weight:700;font-size:11.5pt;line-height:1.12;margin:0 0 1mm}
+h3{font-family:"Caslon",serif;font-weight:700;font-size:9.6pt;line-height:1.15;margin:0 0 .6mm}
+.byline{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.05em;font-size:7.4pt;color:#444;margin:0 0 1.2mm;border-top:.5px solid #888;border-bottom:.5px solid #888;padding:.3mm 0}
+.section{font-family:"OST",serif;font-weight:700;font-variant:small-caps;letter-spacing:.1em;font-size:10.5pt;text-align:center;border-top:2px solid #111;border-bottom:.6px solid #111;padding:.5mm 0;margin:0 0 1.8mm}
+.dropcap::first-letter{float:left;font-family:"Caslon",serif;font-weight:700;font-size:34pt;line-height:.82;padding:1mm 1.4mm 0 0}
+.multi{column-count:3;column-gap:5mm;column-rule:.6px solid #555}
+.multi2{column-count:2;column-gap:5mm;column-rule:.6px solid #555}
+.story{margin-bottom:2mm;padding-bottom:1.6mm;border-bottom:.6px solid #999}
+.story:last-child{border-bottom:none}
+.orn{text-align:center;font-size:9pt;margin:.6mm 0 1.4mm;letter-spacing:.6em;color:#333}
+table{width:100%;border-collapse:collapse;font-size:7.8pt;margin:.6mm 0 1.4mm}
+th{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.04em;text-align:left;border-bottom:1px solid #111;border-top:1.4px solid #111;padding:.4mm .6mm;font-weight:700}
+td{border-bottom:.5px solid #aaa;padding:.4mm .6mm;vertical-align:top}
+td.n{text-align:center;white-space:nowrap;font-weight:700}
+.box{border:1.2px solid #111;padding:1.8mm 2.2mm;margin:0 0 2mm;background:#f2f2f2}
+.box.white{background:#fff}
+.box h3{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.06em;text-align:center;border-bottom:.6px solid #111;padding-bottom:.6mm;margin-bottom:1mm}
+ol.ia{margin:0;padding-left:0;list-style:none;counter-reset:ia}
+ol.ia li{counter-increment:ia;margin:0 0 1.6mm;padding-bottom:1.4mm;border-bottom:.5px dotted #777;text-align:justify;hyphens:auto}
+ol.ia li:last-child{border-bottom:none}
+ol.ia li::before{content:"■ ";font-size:7pt}
+ol.ia b{font-family:"Caslon",serif}
+.pull{font-style:italic;font-size:10.5pt;line-height:1.25;text-align:center;border-top:1.4px solid #111;border-bottom:1.4px solid #111;padding:1.4mm 1mm;margin:1.4mm 0 2mm;column-span:none}
+.fontes{position:absolute;bottom:0;left:0;right:0;border-top:3px double #111;padding-top:1mm;font-size:6.1pt;line-height:1.25;color:#333;column-count:2;column-gap:5mm;word-break:break-all}
+.fontes b{font-family:"OST",serif;font-variant:small-caps;letter-spacing:.06em;font-size:7pt;color:#111}
+.foot{position:absolute;bottom:0;left:0;right:0;border-top:.6px solid #111;padding-top:.6mm;font-family:"OST",serif;font-variant:small-caps;font-size:7pt;display:flex;justify-content:space-between;color:#333}
+.p2head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px double #111;padding-bottom:.6mm;font-family:"OST",serif;font-variant:small-caps;font-size:8pt}
+.p2head .np{font-family:"Gothic",serif;font-size:19pt;font-variant:normal}
+.agenda td:first-child{white-space:nowrap;font-weight:700;width:12mm}
+</style>
+
+</head>
+<body>
+
+<!-- =====================================================================
+  TEMPLATE DO JORNAL PESSOAL — copie para a pasta de trabalho como index.html
+  e substitua tudo que estiver entre {{ }}. Apague blocos que não usar.
+  Classes úteis: .story .kicker h2/h3 .byline .dropcap .multi2 .multi .box
+  .box.white .orn table/th/td td.n .ear .section .pull .src
+  Fontes ficam em ./fonts/ (o render.py copia automaticamente).
+====================================================================== -->
+
+<!-- ================= PÁGINA 1 ================= -->
+<div class="page" id="p1">
+  <div class="mast">
+    <div class="ear">
+      <h4>{{O Tempo em CIDADE}}</h4>
+      <div class="big">{{MAX° / MIN°}}</div>
+      {{Céu, chance de chuva, umidade/alerta}}<br>
+      <i>{{Amanhã: ...}}</i>
+    </div>
+    <div class="nameplate">{{The NOME Chronicle}}</div>
+    <div class="ear">
+      <h4>{{Hoje na Tela / Destaque}}</h4>
+      <div class="big">{{HORÁRIO ou NÚMERO}}</div>
+      {{Linha 1}}<br>{{Linha 2}}<br><i>{{Onde ver}}</i>
+    </div>
+  </div>
+  <div class="dateline">
+    <span>{{Cidade, dia-da-semana, DD de mês de AAAA}}</span>
+    <span><i>“{{Lema curto próprio}}”</i></span>
+    <span>{{Edição nº N}}</span>
+  </div>
+
+  <div class="cols" style="grid-template-columns:minmax(0,2.25fr) minmax(0,1fr) minmax(0,1.12fr)">
+    <!-- MANCHETE -->
+    <div class="col">
+      <div class="kicker">{{Chapéu da manchete}}</div>
+      <h1>{{Título da manchete}}</h1>
+      <div class="deck">{{Linha fina}}</div>
+      <div class="byline">Por {{The NOME Chronicle}} · {{Editoria}}</div>
+      <div class="multi2">
+        <p class="dropcap">{{Primeiro parágrafo. (Fonte)}}</p>
+        <p>{{Parágrafo. (Fonte)}}</p>
+        <div class="pull">“{{Frase de destaque tirada do próprio texto}}”</div>
+        <p>{{Parágrafo final. (Fonte)}}</p>
+      </div>
+      <table style="margin-top:1.4mm">
+        <tr><th colspan="4">{{Tabela opcional: placar, números, agenda}}</th></tr>
+        <tr><td>{{A}}</td><td class="n">{{2 × 0}}</td><td>{{B}}</td><td>{{detalhe}}</td></tr>
+      </table>
+    </div>
+
+    <!-- COLUNA LATERAL 1 -->
+    <div class="col">
+      <div class="section">{{Editoria 1}}</div>
+      <div class="story">
+        <div class="kicker">{{Chapéu}}</div>
+        <h3>{{Título}}</h3>
+        <p>{{Texto. (Fonte)}}</p>
+      </div>
+    </div>
+
+    <!-- COLUNA LATERAL 2 (ex.: resumo em itens) -->
+    <div class="col">
+      <div class="section">{{Editoria 2 em Resumo}}</div>
+      <ol class="ia">
+        <li><b>{{Título curto.}}</b> {{Texto.}} <span class="src">({{Fonte}})</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><span>{{The NOME Chronicle}} · {{Edição nº N}}</span><span>❧</span><span>{{Continua na página 2: ...}}</span></div>
+</div>
+
+<!-- ================= PÁGINA 2 ================= -->
+<div class="page" id="p2">
+  <div class="p2head"><span>{{Dia-da-semana, DD de mês de AAAA}}</span><span class="np">{{The NOME Chronicle}}</span><span>Página 2</span></div>
+
+  <div class="cols" style="grid-template-columns:minmax(0,2.05fr) minmax(0,1fr) minmax(0,1fr)">
+    <div class="col">
+      <div class="section">{{Cidade: NOME-UF}}</div>
+      <div class="story">
+        <div class="kicker">{{Chapéu}}</div>
+        <h2>{{Título principal local}}</h2>
+        <div class="multi2"><p>{{Texto. (Fonte)}}</p></div>
+      </div>
+      <div class="box white">
+        <h3>{{Agenda cultural ❧ datas}}</h3>
+        <table class="agenda" style="margin:0">
+          <tr><th>Quando</th><th>O quê e onde</th></tr>
+          <tr><td>{{20h}}</td><td><b>{{Evento}}</b>: {{local, preço}}</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section">{{Pauta dinâmica}}</div>
+      <div class="story"><div class="kicker">{{Chapéu}}</div><h3>{{Título}}</h3><p>{{Texto. (Fonte)}}</p></div>
+    </div>
+
+    <div class="col">
+      <div class="section">{{Pauta dinâmica 2}}</div>
+      <div class="story"><div class="kicker">{{Chapéu}}</div><h3>{{Título}}</h3><p>{{Texto. (Fonte)}}</p></div>
+      <!-- Opcional: só se a agenda do leitor estiver disponível -->
+      <div class="box">
+        <h3>Sua agenda de hoje</h3>
+        <table class="agenda" style="margin:0">
+          <tr><td>{{10h30}}</td><td>{{Título do compromisso}}</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="fontes"><b>Fontes</b> · {{dominio.com/caminho-curto}} · {{...}}</div>
+</div>
+
+</body>
+</html>
